@@ -2,7 +2,6 @@ package youssef;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import youssef.Exceptions;
 
 public class user extends person {
 
@@ -23,10 +22,52 @@ public class user extends person {
         this.id = id;
     }
 
+    public void mainMenu() {
+        while (true) {
+            System.out.println("Welcome to the Reservation System ");
+            System.out.println("Please choose an option:");
+            System.out.println("1.Add a Vehicle");
+            System.out.println("2. Make a Reservation");
+            System.out.println("3. Cancel a Reservation");
+            System.out.println("4. Update a Reservation");
+            System.out.println("5. Display Available Slots");
+            System.out.println("6. Calculate Payment");
+            System.out.println("7. Exit");
+
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    addVehicle();
+                    break;
+                case 2:
+                    Reservation();
+                    break;
+                case 3:
+                    CancelReservation();
+                    break;
+                case 4:
+                    updatereservation();
+                    break;
+                case 5:
+                    displayAvailableSlots();
+                    break;
+                case 6:
+                    calculatePayment();
+                    break;
+                case 7:
+                    System.out.println("Exiting the system...");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+            }
+        }
+    }
+
     public void addVehicle() {
+        String back;
         if (numberOfVehicles >= max_vehicles) {
             System.out.println("You have reached the maximum number of vehicles.");
-            //call the main menu
+            return;
         }
 
         System.out.println("Enter the vehicle name:");
@@ -36,6 +77,11 @@ public class user extends person {
         String licenseNumber = scanner.next();
 
         String type = selectVehicleType();
+        System.out.println("Press C if you want to add this vehicle otherwise press any other letter to return to the main menu");
+        back = scanner.next();
+        if (!back.toUpperCase().equals("C")) {
+            return;
+        }
         switch (type) {
             case "Bike":
                 vehicles vbike = new bike(name, type, licenseNumber);
@@ -63,6 +109,10 @@ public class user extends person {
         int caridchoice = 0;
         int fbfidchoice = 0;
         int j = 1;
+        if (vehicle.size() == 0) {
+            System.out.println("There is no vehicles to  select");
+            return;
+        }
         for (int i = 0; i < vehicle.size(); i++) {
 
             if (vehicle.get(i).getType().equals("Bike")) {
@@ -105,7 +155,7 @@ public class user extends person {
                 back = scanner.next();
             }
             if (!back.toUpperCase().equals("C")) {
-                //return to main menu
+                return;
             }
 
         } while (back.toUpperCase().equals("C") && !rightchoice);
@@ -118,7 +168,7 @@ public class user extends person {
             check = fourByFour.check_availability();
         }
         if (check == 1) {
-            //call the main menu
+            return;
         }
         int choice2;
         do {
@@ -146,7 +196,7 @@ public class user extends person {
                 back = scanner.next();
             }
             if (!back.toUpperCase().equals("C")) {
-                //return to main menu
+                return;
             }
         } while (back.toUpperCase().equals("C") && !rightchoice);
         do {
@@ -169,7 +219,7 @@ public class user extends person {
                 back = scanner.next();
             }
             if (!back.toUpperCase().equals("C")) {
-                //return to main menu
+                return;
             }
 
         } while (back.toUpperCase().equals("C") && !rightchoice);
@@ -184,10 +234,9 @@ public class user extends person {
                 back = scanner.next();
             }
             if (!back.toUpperCase().equals("C")) {
-                //return to main menu
+                return;
             }
         } while (back.toUpperCase().equals("C") && !rightchoice);
-        //call the function to reward the owner if the hours exceeds 6
         vehicle.get(choice2).ConfirmReservation();
     }
 
@@ -196,11 +245,11 @@ public class user extends person {
         int indexofelement = selectReservedVehicle();
         if (indexofelement == -1) {
             System.out.println("There is no Reservations to cancel");
-            //call the main menu
+            return;
         }
         CancelationFees += 10;
         vehicle.get(indexofelement).confirm_cancelation();
-        //call the main menu
+        return;
     }
 
     public void updatereservation() {
@@ -211,7 +260,7 @@ public class user extends person {
         indexofelement = selectReservedVehicle();
         if (indexofelement == -1) {
             System.out.println("There is no Reservations to update");
-            //call the main menu
+            return;
         }
 
         int sel;
@@ -228,65 +277,70 @@ public class user extends person {
                 System.out.println("Press C if you want to reenter your choice otherwise press any other letter to return to the main menu");
                 back = scanner.next();
             }
-                if (back.toUpperCase().equals("C")) {
-                    continue;
-                } else if (!back.toUpperCase().equals("C")) {
-                    //call the main menu
-                }
-            }
-            while (back.toUpperCase().equals("C") && !rightchoice);
-            if (sel == 1) {
-                int day;
-                do {
-                    rightchoice = true;
-                    System.out.println("Enter the Day you want the reservation at");
-                    day = scanner.nextInt();
-                    if (vehicle.get(indexofelement).addDateandTime(day, vehicle.get(indexofelement).getReservationtime()) == 1) {
-                        rightchoice = false;
-                        System.out.println("Please Enter a valid day that don't exceeds 3 days from today");
-                        System.out.println("Press C if you want to reenter the day of the reservation or otherwise press any other letter to return to the main menu");
-                        back = scanner.next();
-                    }
-                    if (!back.toUpperCase().equals("C")) {
-                        //return to main menu
-                    }
-                } while (back.toUpperCase().equals("C") && !rightchoice);
-            } else if (sel == 2) {
-                int time;
-                System.out.println("Enter the Time you want the reservation at");
-                time = scanner.nextInt();
-                do {
-                    time = scanner.nextInt();
-                    rightchoice = true;
-                    if (vehicle.get(indexofelement).addDateandTime(vehicle.get(indexofelement).getReservationdate(), time) == 2) {
-                        rightchoice = false;
-                        System.out.println("Please Enter a valid time");
-                        System.out.println("Press C if you want to reenter the time of the reservation or otherwise press any other letter to return to the main menu");
-                        back = scanner.next();
-                        if (!back.toUpperCase().equals("C")) {
-                            //return to main menu
-                        }
-
-                    }
-                } while (back.toUpperCase().equals("C") && !rightchoice);
-
-                if (!back.toUpperCase().equals("C")) {
-                    //return to main menu
-                }
-
+            if (!back.toUpperCase().equals("C")) {
+                return;
             }
         } while (back.toUpperCase().equals("C") && !rightchoice);
+        if (sel == 1) {
+            int day;
+            do {
+                rightchoice = true;
+                System.out.println("Enter the Day you want the reservation at");
+                day = scanner.nextInt();
+                if (vehicle.get(indexofelement).addDateandTime(day, vehicle.get(indexofelement).getReservationtime()) == 1) {
+                    rightchoice = false;
+                    System.out.println("Please Enter a valid day that don't exceeds 3 days from today");
+                    System.out.println("Press C if you want to reenter the day of the reservation or otherwise press any other letter to return to the main menu");
+                    back = scanner.next();
+                }
+                if (!back.toUpperCase().equals("C")) {
+                    return;
+                }
+            } while (back.toUpperCase().equals("C") && !rightchoice);
+        } else if (sel == 2) {
+            int time;
+            System.out.println("Enter the Time you want the reservation at");
+            time = scanner.nextInt();
+            do {
+                time = scanner.nextInt();
+                rightchoice = true;
+                if (vehicle.get(indexofelement).addDateandTime(vehicle.get(indexofelement).getReservationdate(), time) == 2) {
+                    rightchoice = false;
+                    System.out.println("Please Enter a valid time");
+                    System.out.println("Press C if you want to reenter the time of the reservation or otherwise press any other letter to return to the main menu");
+                    back = scanner.next();
+                    if (!back.toUpperCase().equals("C")) {
+                        return;
+                    }
 
-        //call the main menu
+                }
+            } while (back.toUpperCase().equals("C") && !rightchoice);
+        }
+        return;
     }
 
-    public void displayAvailableSlots(int id, int numberofvehicles) {
-        for (int i = 0; i < numberofvehicles; i++) {
-            if (vehicle.get(numberofvehicles).getType().equals("Bike")) {
+    public void displayAvailableSlots() {
+        boolean largespot = false;
+        boolean normalspot = false;
+        boolean bikespot = false;
+        for (int i = 0; i < vehicle.size(); i++) {
+            if (vehicle.get(i).getType().equals("Bike")) {
+                if (bikespot) {
+                    continue;
+                }
+                bikespot = true;
                 System.out.println("Available bike slots are: " + bike.getSlots());
-            } else if (vehicle.get(numberofvehicles).getType().equals("Car")) {
+            } else if (vehicle.get(i).getType().equals("Car")) {
+                if (normalspot) {
+                    continue;
+                }
+                normalspot = true;
                 System.out.println("Available Normal slots are: " + car.getSlots());
             } else {
+                if (largespot) {
+                    continue;
+                }
+                largespot = true;
                 System.out.println("Available Large slots are: " + fourByFour.getSlots());
             }
         }
@@ -332,7 +386,7 @@ public class user extends person {
             System.out.println("Cancelation Fees: " + CancelationFees);
         }
         System.out.println("Total Payment: " + (fees + CancelationFees));
-
+        return;
     }
 
     public int selectVehicle() {
