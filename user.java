@@ -7,19 +7,79 @@ public class user extends person {
 
     private String name;
     private String password;
+    private String e_mail;
+    private int Phone_number;
+    private int age;
+    private String address;
+    private String gender;
     private static final int max_vehicles = 3;
     private int id;
     private int fees = 0;
     private int CancelationFees = 0;
     private int numberOfVehicles = 0;
-    private ArrayList<vehicles> vehicle = new ArrayList<>();
+    public ArrayList<vehicles> vehicle = new ArrayList<>();
+    public static int number_of_reserved_slots = 0;
+    public static int starting_id = 100;
 
     Scanner scanner = new Scanner(System.in);
 
-    public user(String name, String password, int id) {
+    public user(String name, String password, String e_mail, int Phone_number, int age, String address, String gender, int id) {
         this.name = name;
         this.password = password;
+        this.e_mail = e_mail;
+        this.Phone_number = Phone_number;
+        this.age = age;
+        this.address = address;
+        this.gender = gender;
         this.id = id;
+        starting_id++;
+    }
+
+    public String getE_mail() {
+        return e_mail;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+    
+
+    public int getPhone_number() {
+        return Phone_number;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    
+    
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getFees() {
+        return fees;
+    }
+
+    public int getCancelationFees() {
+        return CancelationFees;
+    }
+
+    public int getNumberOfVehicles() {
+        return numberOfVehicles;
     }
 
     public void mainMenu() {
@@ -41,12 +101,15 @@ public class user extends person {
                     break;
                 case 2:
                     Reservation();
+                    calculatePayment();
                     break;
                 case 3:
                     CancelReservation();
+                    calculatePayment();
                     break;
                 case 4:
                     updatereservation();
+                    calculatePayment();
                     break;
                 case 5:
                     displayAvailableSlots();
@@ -56,6 +119,7 @@ public class user extends person {
                     break;
                 case 7:
                     System.out.println("Exiting the system...");
+                    System.exit(0);
                     return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
@@ -221,7 +285,6 @@ public class user extends person {
             if (!back.toUpperCase().equals("C")) {
                 return;
             }
-
         } while (back.toUpperCase().equals("C") && !rightchoice);
         do {
             rightchoice = true;
@@ -238,6 +301,7 @@ public class user extends person {
             }
         } while (back.toUpperCase().equals("C") && !rightchoice);
         vehicle.get(choice2).ConfirmReservation();
+        vehicle.get(choice2).slot_number = number_of_reserved_slots;
     }
 
     public void CancelReservation() {
@@ -249,7 +313,6 @@ public class user extends person {
         }
         CancelationFees += 10;
         vehicle.get(indexofelement).confirm_cancelation();
-        return;
     }
 
     public void updatereservation() {
@@ -396,7 +459,7 @@ public class user extends person {
         do {
             wrongchoice = false;
 
-            System.out.println("Choose the number of the vehicle you want to make reservation for");
+            System.out.println("Choose the number of the vehicle");
             for (int i = 0; i < vehicle.size(); i++) {
                 System.out.println((i + 1) + ". " + vehicle.get(i) + " (License: " + vehicle.get(i).getLicenes_number() + ")");
             }
@@ -421,7 +484,7 @@ public class user extends person {
             int j = 1;
             for (int i = 0; i < vehicle.size(); i++) {
                 if (vehicle.get(i).isThere_is_reservation()) {
-                    System.out.println(j + ". " + vehicle.get(i) + " (License: " + vehicle.get(i).getLicenes_number() + ")");
+                    System.out.println(j + ". " + vehicle.get(i).getName() + " (License: " + vehicle.get(i).getLicenes_number() + ")");
                     j++;
                 }
             }
@@ -472,6 +535,15 @@ public class user extends person {
             }
         } while (wrongchoice);
         return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        user otheruser = (user) obj;
+        if (this.id == otheruser.id) {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -1,21 +1,29 @@
 package youssef;
 
+import java.util.ArrayList;
+
 
 public class vehicles {
-    private String name = new String();
-    protected String type = new String();
+    private String name;
+    protected String type;
     private String licenes_number;
     private int free_hours = 0;
     private int hours;
     protected boolean There_is_reservation;
-    private int Reservationdate;
-    private int Reservationtime;
+    protected int Reservationdate;
+    protected int Reservationtime;
+    public int slot_number;
 
     public vehicles(String name, String type, String licenes_number) {
         this.name = name;
         this.type = type;
         this.licenes_number = licenes_number;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
 
     public String getName() {
         return name;
@@ -70,6 +78,7 @@ public class vehicles {
         this.hours = hours;
             return 0;
     }
+    public void add_data_to_slots(int fees){}
     public void ConfirmReservation(){}
     public void confirm_cancelation(){}
         
