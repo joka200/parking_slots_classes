@@ -1,8 +1,4 @@
-package youssef;
-
 import java.util.ArrayList;
-import static youssef.bike.addslots;
-import static youssef.bike.slotsArray;
 
 public class fourByFour extends vehicles {
 

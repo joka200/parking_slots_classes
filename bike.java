@@ -1,8 +1,5 @@
-package youssef;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import static youssef.user.number_of_reserved_slots;
 
 public class bike extends vehicles {
 

@@ -1,5 +1,3 @@
-package youssef;
-
 public class slots
 {
     private int time;

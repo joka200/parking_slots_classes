@@ -1,5 +1,3 @@
-package youssef;
-
 import java.util.Scanner;
 
 public class Admin extends person {
