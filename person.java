@@ -16,8 +16,9 @@ public abstract class person {
             choice = scanner.nextInt();
             if (choice == 3) {
                 Sign_up.Update_Customer_File();
-                Sign_up.Update_Coach_File();
-                Sign_up.Update_Equipments_File();
+                Sign_up.Update_bikeSlots_File();
+                Sign_up.Update_NormalSlots_File();
+                Sign_up.Update_LargeSlots_File();
                 System.exit(0);
             } else if (choice == 1) {
                 int ans;

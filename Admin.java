@@ -61,11 +61,11 @@ public class Admin extends person {
     }
 
     public void add_slot() {
-        String ans1;
+        String ans1 = new String();
         slots slot = new slots();
         int ans2;
         System.out.println("Which spot kind do you want to add slots to: ( bike | normal | large )");
-        ans1 = scanner.nextLine();
+        ans1 = scanner.next();
         System.out.println("Which spot id do you want to add slots to: 200 | 201 | 202");
         ans2 = scanner.nextInt();
         System.out.println("How many slots you want to add");
@@ -81,7 +81,7 @@ public class Admin extends person {
                 System.out.println("Invalid id");
                 return;
             }
-        } else if (ans1.toLowerCase().equals("car")) {
+        } else if (ans1.toLowerCase().equals("normal")) {
             if (ans2 == car.getSpot_id()) {
                 for (int i = 0; i < ans3; i++) {
 
@@ -93,8 +93,8 @@ public class Admin extends person {
                 System.out.println("Invalid id");
                 return;
             }
-        } else if (ans1.toLowerCase().equals("4*4")) {
-            if (ans2 == bike.getSpot_id()) {
+        } else if (ans1.toLowerCase().equals("large")) {
+            if (ans2 == fourByFour.getSpot_id()) {
                 for (int i = 0; i < ans3; i++) {
 
                     fourByFour.addslots();

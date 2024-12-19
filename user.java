@@ -35,6 +35,15 @@ public class user extends person {
         starting_id++;
     }
 
+    public void setCancelationFees(int CancelationFees) {
+        this.CancelationFees = CancelationFees;
+    }
+
+    public void setNumberOfVehicles(int numberOfVehicles) {
+        this.numberOfVehicles = numberOfVehicles;
+    }
+    
+
     public String getE_mail() {
         return e_mail;
     }
@@ -73,6 +82,11 @@ public class user extends person {
     public int getFees() {
         return fees;
     }
+
+    public void setFees(int fees) {
+        this.fees = fees;
+    }
+    
 
     public int getCancelationFees() {
         return CancelationFees;

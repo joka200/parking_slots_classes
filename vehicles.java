@@ -57,6 +57,31 @@ public class vehicles {
         return hours;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setLicenes_number(String licenes_number) {
+        this.licenes_number = licenes_number;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
+
+    public void setThere_is_reservation(boolean There_is_reservation) {
+        this.There_is_reservation = There_is_reservation;
+    }
+
+    public void setReservationdate(int Reservationdate) {
+        this.Reservationdate = Reservationdate;
+    }
+
+    public void setReservationtime(int Reservationtime) {
+        this.Reservationtime = Reservationtime;
+    }
+    
+
     public void setFree_hours(int free_hours) {
         this.free_hours = free_hours;
     }
