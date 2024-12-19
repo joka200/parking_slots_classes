@@ -1,4 +1,4 @@
-package youssef;
+
 import java.lang.*;
 import java.io.BufferedReader;
 import java.io.FileReader;

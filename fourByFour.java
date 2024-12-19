@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public class fourByFour extends vehicles {
@@ -52,14 +53,16 @@ public class fourByFour extends vehicles {
     @Override
     public void ConfirmReservation() {
         There_is_reservation = true;
-        add_data_to_slots(fourByFour.price * getHours());
+        add_data_to_slots(fourByFour.price * (hours- free_hours));
         user.number_of_reserved_slots++;
         slots--;
     }
 
     @Override
-    public void confirm_cancelation() {
-        There_is_reservation = false;
+    public void ConfirmCancelation() {
+        setThere_is_reservation(false);
+        setHours(0);
+        setFree_hours(0);
         add_data_to_slots(fourByFour.price * getHours());
         slotsArray.remove(slot_number);
         addslots();

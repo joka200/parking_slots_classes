@@ -1,3 +1,4 @@
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -40,6 +41,7 @@ public class Sign_up {
                 gender = input.next();
                 id = user.starting_id;
                 main.users.add(new user(name, password,e_mail,Phone_number, age,address, gender,id));
+                user.starting_id++;
                 System.out.println("you have registered your account successfully");
                 System.out.println("Now you can login");
             } catch (InputMismatchException e) {
@@ -74,7 +76,7 @@ public class Sign_up {
                         main.users.get(i).getCancelationFees() + " "+
                         main.users.get(i).getNumberOfVehicles() + " "+
                         user.number_of_reserved_slots + " "+
-                        user.starting_id));
+                        user.starting_id + " "));
                 for(int j = 0;j<main.users.get(i).vehicle.size();j++)
                 {
                     writer.write(main.users.get(i).vehicle.get(j).getName() + " " +

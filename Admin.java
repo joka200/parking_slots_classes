@@ -1,12 +1,15 @@
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Admin extends person {
+
     public static final String name = "admin";
     public static final String password = "admin";
 
     Scanner scanner = new Scanner(System.in);
-    
-    public void main_menu(){
+
+    public void main_menu() {
         while (true) {
             System.out.println("1. Add Slots");
             System.out.println("2. Delete an Entity");
@@ -22,13 +25,13 @@ public class Admin extends person {
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1:
-                    add_slot();  
+                    add_slot();
                     break;
                 case 2:
-                    Delete_entity();  
+                    Delete_entity();
                     break;
                 case 3:
-                    Display_Available_slots();  
+                    Display_Available_slots();
                     break;
                 case 4:
                     Display_all_owner_data();
@@ -43,10 +46,10 @@ public class Admin extends person {
                     Display_bike_spot_total_amount();
                     break;
                 case 8:
-                    Display_large_spot_total_amount();  
+                    Display_large_spot_total_amount();
                     break;
                 case 9:
-                    update_data(); 
+                    update_data();
                     break;
                 case 10:
                     System.out.println("logging out....");
@@ -62,13 +65,18 @@ public class Admin extends person {
         String ans1 = new String();
         slots slot = new slots();
         int ans2;
+        int ans3;
+        try{
         System.out.println("Which spot kind do you want to add slots to: ( bike | normal | large )");
         ans1 = scanner.next();
         System.out.println("Which spot id do you want to add slots to: 200 | 201 | 202");
         ans2 = scanner.nextInt();
         System.out.println("How many slots you want to add");
-        int ans3 = scanner.nextInt();
-
+        ans3 = scanner.nextInt();
+        }catch(InputMismatchException e){
+            System.out.println("Invalid input.");
+            return;
+        }
         if (ans1.toLowerCase().equals("bike")) {
             if (ans2 == bike.getSpot_id()) {
                 for (int i = 0; i < ans3; i++) {
@@ -130,7 +138,7 @@ public class Admin extends person {
             case 1:
                 System.out.println("Enter the id of the user you want to delete");
                 choice2 = scanner.nextInt();
-                index = main.users.indexOf(new user(" ", " "," ",0,0," "," ", choice2));
+                index = main.users.indexOf(new user(" ", " ", " ", 0, 0, " ", " ", choice2));
                 if (index == -1) {
                     System.out.println("Id not found");
                     return;
@@ -170,7 +178,7 @@ public class Admin extends person {
             case 2:
                 System.out.println("Enter the id of the user you want to delete his vehicle");
                 choice2 = scanner.nextInt();
-                index = main.users.indexOf(new user(" ", " "," ",0,0," "," ", choice2));
+                index = main.users.indexOf(new user(" ", " ", " ", 0, 0, " ", " ", choice2));
                 if (index == -1) {
                     System.out.println("Id not found");
                     return;
@@ -186,7 +194,7 @@ public class Admin extends person {
                     case "Y":
                     case "y":
                         if (main.users.get(index).vehicle.get(choice4).There_is_reservation) {
-                            main.users.get(index).vehicle.get(choice4).confirm_cancelation();
+                            main.users.get(index).vehicle.get(choice4).ConfirmCancelation();
                         }
                         main.users.get(index).vehicle.remove(choice4);
                         System.out.println("vehicle deleted successfully");
@@ -204,7 +212,7 @@ public class Admin extends person {
             case 3:
                 System.out.println("Enter the id of the user you want to delete his resrvation");
                 choice2 = scanner.nextInt();
-                index = main.users.indexOf(new user(" ", " "," ",0,0," "," ", choice2));
+                index = main.users.indexOf(new user(" ", " ", " ", 0, 0, " ", " ", choice2));
                 if (index == -1) {
                     System.out.println("Id not found");
                     return;
@@ -220,7 +228,7 @@ public class Admin extends person {
                 switch (choice3) {
                     case "Y":
                     case "y":
-                        main.users.get(index).vehicle.get(choice4).confirm_cancelation();
+                        main.users.get(index).vehicle.get(choice4).ConfirmCancelation();
                         System.out.println("reservation deleted successfully");
                         break;
                     case "N":
@@ -319,32 +327,32 @@ public class Admin extends person {
     }
 
     void Display_all_owner_data() {
-            System.out.println("Enter the id of the user you want to update");
+        System.out.println("Enter the id of the user you want to update");
         int choice1 = scanner.nextInt();
-        int index = main.users.indexOf(new user(" ", " "," ",0,0," "," ", choice1));
+        int index = main.users.indexOf(new user(" ", " ", " ", 0, 0, " ", " ", choice1));
         if (index == -1) {
             System.out.println("Id not found");
             return;
         }
-            System.out.println("Owner Name: " + main.users.get(index).getName());
-            System.out.println("Owner ID: " + main.users.get(index).getId());
-            System.out.println("Owner Age: " + main.users.get(index).getAge());
-            System.out.println("Owner Address: " + main.users.get(index).getAddress());
-            System.out.println("Owner Email: " + main.users.get(index).getE_mail());
-            System.out.println("Owner Phone number: " + main.users.get(index).getPhone_number());
-            System.out.println("Owner Gender: " + main.users.get(index).getGender());
-            System.out.println("Owner Total Fees: " + main.users.get(index).getFees());
-            for (int j = 0; j < main.users.get(index).vehicle.size(); j++) {
-                System.out.println("Vehicles: ");
-                System.out.print(j + ". " + main.users.get(index).vehicle.get(j).getName() + " (License: " + main.users.get(index).vehicle.get(j).getLicenes_number());
-                if (main.users.get(index).vehicle.get(j).There_is_reservation) {
-                    System.out.print(" Reservation date: " + main.users.get(index).vehicle.get(j).getReservationdate() + "/12/2024");
-                    System.out.print(" Reservation time: " + main.users.get(index).vehicle.get(j).getReservationtime() + ":00");
-                    System.out.print(" Reservation hours " + main.users.get(index).vehicle.get(j).getHours());
-                }
-
+        System.out.println("Owner Name: " + main.users.get(index).getName());
+        System.out.println("Owner ID: " + main.users.get(index).getId());
+        System.out.println("Owner Age: " + main.users.get(index).getAge());
+        System.out.println("Owner Address: " + main.users.get(index).getAddress());
+        System.out.println("Owner Email: " + main.users.get(index).getE_mail());
+        System.out.println("Owner Phone number: " + main.users.get(index).getPhone_number());
+        System.out.println("Owner Gender: " + main.users.get(index).getGender());
+        System.out.println("Owner Total Fees: " + main.users.get(index).getFees());
+        for (int j = 0; j < main.users.get(index).vehicle.size(); j++) {
+            System.out.println("Vehicles: ");
+            System.out.print(j + ". " + main.users.get(index).vehicle.get(j).getName() + " (License: " + main.users.get(index).vehicle.get(j).getLicenes_number());
+            if (main.users.get(index).vehicle.get(j).There_is_reservation) {
+                System.out.print(" Reservation date: " + main.users.get(index).vehicle.get(j).getReservationdate() + "/12/2024");
+                System.out.print(" Reservation time: " + main.users.get(index).vehicle.get(j).getReservationtime() + ":00");
+                System.out.println(" Reservation hours " + main.users.get(index).vehicle.get(j).getHours());
             }
-        
+
+        }
+
     }
 
     void Dipslay_spots() {
@@ -354,6 +362,8 @@ public class Admin extends person {
             System.out.print("Date: " + bike.slotsArray.get(i).getDate());
             if (bike.slotsArray.get(i).getDate() > 0) {
                 System.out.println("/12/2024");
+            } else {
+                System.out.println(" ");
             }
             System.out.println("time: " + bike.slotsArray.get(i).getTime());
             System.out.println("fees: " + bike.slotsArray.get(i).getFees());
@@ -364,6 +374,8 @@ public class Admin extends person {
             System.out.print("Date: " + car.slotsArray.get(i).getDate());
             if (car.slotsArray.get(i).getDate() > 0) {
                 System.out.println("/12/2024");
+            } else {
+                System.out.println(" ");
             }
             System.out.println("time: " + car.slotsArray.get(i).getTime());
             System.out.println("fees: " + car.slotsArray.get(i).getFees());
@@ -374,6 +386,8 @@ public class Admin extends person {
             System.out.print("Date: " + fourByFour.slotsArray.get(i).getDate());
             if (fourByFour.slotsArray.get(i).getDate() > 0) {
                 System.out.println("/12/2024");
+            } else {
+                System.out.println(" ");
             }
             System.out.println("time: " + fourByFour.slotsArray.get(i).getTime());
             System.out.println("fees: " + fourByFour.slotsArray.get(i).getFees());
@@ -382,36 +396,24 @@ public class Admin extends person {
 
     void Display_normal_spot_total_amount() {
         int fees = 0;
-        for (int i = 0; i < main.users.size(); i++) {
-            for (int j = 0; i < main.users.get(i).vehicle.size(); j++) {
-                if (main.users.get(i).vehicle.get(j).type.equals("Car")) {
-                    fees += car.slotsArray.get(j).getFees();
-                }
-            }
+        for (int i = 0; i < car.getSlots(); i++) {
+            fees += car.slotsArray.get(i).getFees();
         }
         System.out.println("Normal Spot fees: " + fees);
     }
 
     void Display_bike_spot_total_amount() {
         int fees = 0;
-        for (int i = 0; i < main.users.size(); i++) {
-            for (int j = 0; i < main.users.get(i).vehicle.size(); j++) {
-                if (main.users.get(i).vehicle.get(j).type.equals("Bike")) {
-                    fees += bike.slotsArray.get(j).getFees();
-                }
-            }
+        for (int i = 0; i < bike.getSlots(); i++) {
+            fees += bike.slotsArray.get(i).getFees();
         }
         System.out.println("bike Spot fees: " + fees);
     }
 
     void Display_large_spot_total_amount() {
         int fees = 0;
-        for (int i = 0; i < main.users.size(); i++) {
-            for (int j = 0; i < main.users.get(i).vehicle.size(); j++) {
-                if (main.users.get(i).vehicle.get(j).type.equals("Four By Four")) {
-                    fees += fourByFour.slotsArray.get(j).getFees();
-                }
-            }
+        for (int i = 0; i < fourByFour.getSlots(); i++) {
+            fees += fourByFour.slotsArray.get(i).getFees();
         }
         System.out.println("Large Spot fees: " + fees);
     }
@@ -419,7 +421,7 @@ public class Admin extends person {
     void update_data() {
         System.out.println("Enter the id of the user you want to update");
         int choice1 = scanner.nextInt();
-        int index = main.users.indexOf(new user(" ", " "," ",0,0," "," ", choice1));
+        int index = main.users.indexOf(new user(" ", " ", " ", 0, 0, " ", " ", choice1));
         if (index == -1) {
             System.out.println("Id not found");
             return;
@@ -428,8 +430,8 @@ public class Admin extends person {
         System.out.println("Owner ID: " + main.users.get(index).getId());
         System.out.println("Owner Total Fees: " + main.users.get(index).getFees());
         System.out.println(" ");
-        System.out.println("Enter the number you want to update");
-        System.out.println("1.Vehicle");
+        System.out.println("Enter the number ");
+        System.out.println("1.update Vehicle");
         System.out.println("2.Return to main menu");
         Exceptions e = new Exceptions();
         choice1 = e.check_range(1, 4);
@@ -453,28 +455,28 @@ public class Admin extends person {
                     case 1:
                         for (int j = 0; j < main.users.get(index).vehicle.size(); j++) {
                             System.out.println("Vehicles: ");
-                            System.out.print(j + ". " + main.users.get(index).vehicle.get(j).getName() + " (License: " + main.users.get(index).vehicle.get(j).getLicenes_number());
-                            if (main.users.get(index).vehicle.get(j).There_is_reservation) {
+                            System.out.print(j+1 + ". " + main.users.get(index).vehicle.get(j).getName() + " (License: " + main.users.get(index).vehicle.get(j).getLicenes_number());
+                            if (main.users.get(index).vehicle.get(j-1).There_is_reservation) {
                                 System.out.print(" Reservation date: " + main.users.get(index).vehicle.get(j).getReservationdate() + "/12/2024");
                                 System.out.print(" Reservation time: " + main.users.get(index).vehicle.get(j).getReservationtime() + ":00");
                                 System.out.print(" Reservation hours " + main.users.get(index).vehicle.get(j).getHours());
                             }
 
                         }
+                        System.out.println(" ");
                         System.out.println("Enter the number of vehicle you want to update");
                         choice2 = e.check_range(1, main.users.get(index).vehicle.size());
                         if (choice2 == -1) {
-                            System.out.println("Invalid choice");
                             return;
                         }
                         System.out.println("Enter the new vehicle name");
                         String s = scanner.next();
-                        main.users.get(index).vehicle.get(choice2-1).setName(s);
+                        main.users.get(index).vehicle.get(choice2 - 1).setName(s);
                         break;
                     case 2:
                         for (int j = 0; j < main.users.get(index).vehicle.size(); j++) {
                             System.out.println("Vehicles: ");
-                            System.out.print(j + ". " + main.users.get(index).vehicle.get(j).getName() + " (License: " + main.users.get(index).vehicle.get(j).getLicenes_number());
+                            System.out.print(j+1 + ". " + main.users.get(index).vehicle.get(j).getName() + " (License: " + main.users.get(index).vehicle.get(j).getLicenes_number());
                             if (main.users.get(index).vehicle.get(j).There_is_reservation) {
                                 System.out.print(" Reservation date: " + main.users.get(index).vehicle.get(j).getReservationdate() + "/12/2024");
                                 System.out.print(" Reservation time: " + main.users.get(index).vehicle.get(j).getReservationtime() + ":00");
@@ -490,7 +492,7 @@ public class Admin extends person {
                         }
                         System.out.println("Enter the new number");
                         String L = scanner.next();
-                        main.users.get(index).vehicle.get(choice2-1).setName(L);
+                        main.users.get(index).vehicle.get(choice2 - 1).setName(L);
                         break;
                     case 3:
                         main.users.get(index).updatereservation();

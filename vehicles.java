@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 
@@ -5,8 +6,8 @@ public class vehicles {
     private String name;
     protected String type;
     private String licenes_number;
-    private int free_hours = 0;
-    private int hours;
+    protected int free_hours = 0;
+    protected int hours;
     protected boolean There_is_reservation;
     protected int Reservationdate;
     protected int Reservationtime;
@@ -85,7 +86,7 @@ public class vehicles {
     }
     
     public int addDateandTime(int RDate,int Rtime){
-        if(RDate>31 || RDate<1 || 16-RDate>3 || 16-RDate <0 ){
+        if(RDate>31 || RDate<1 || RDate-16>3 || RDate-16 <0 ){
             return 1;
         }if(Rtime>24 || Rtime<1){
             return 2;
@@ -102,7 +103,9 @@ public class vehicles {
             return 0;
     }
     public void add_data_to_slots(int fees){}
-    public void ConfirmReservation(){}
-    public void confirm_cancelation(){}
+    public void ConfirmReservation(){
+        System.out.println("yyyyyyyy");}
+    public void ConfirmCancelation(){
+        System.out.println("yyyyyyyy");}
         
 }

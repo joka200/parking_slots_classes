@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 public class car extends vehicles {
 
@@ -49,14 +50,16 @@ public class car extends vehicles {
     @Override
     public void ConfirmReservation() {
         There_is_reservation = true;
-        add_data_to_slots(car.price * getHours());
+        add_data_to_slots(car.price * (hours- free_hours));
         user.number_of_reserved_slots++;
         slots--;
     }
 
     @Override
-    public void confirm_cancelation() {
-        There_is_reservation = false;
+    public void ConfirmCancelation() {
+        setThere_is_reservation(false);
+        setHours(0);
+        setFree_hours(0);
         add_data_to_slots(car.price * getHours());
         slotsArray.remove(slot_number);
         addslots();
@@ -64,10 +67,10 @@ public class car extends vehicles {
         slots++;
     }
     @Override
-    public void add_data_to_slots(int fees) {
+    public void add_data_to_slots(int feess) {
         slotsArray.get(slot_number).setTime(Reservationtime);
         slotsArray.get(slot_number).setDate(Reservationdate);
-        slotsArray.get(slot_number).setFees(fees);
+        slotsArray.get(slot_number).setFees(feess);
     }
     
 

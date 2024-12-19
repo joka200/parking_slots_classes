@@ -30,7 +30,6 @@ public class user extends person {
         this.address = address;
         this.gender = gender;
         this.id = id;
-        starting_id++;
     }
 
     public void setCancelationFees(int CancelationFees) {
@@ -104,7 +103,7 @@ public class user extends person {
             System.out.println("4. Update a Reservation");
             System.out.println("5. Display Available Slots");
             System.out.println("6. Calculate Payment");
-            System.out.println("7. Exit");
+            System.out.println("7. Logout");
 
             int choice = scanner.nextInt();
             switch (choice) {
@@ -113,15 +112,12 @@ public class user extends person {
                     break;
                 case 2:
                     Reservation();
-                    calculatePayment();
                     break;
                 case 3:
                     CancelReservation();
-                    calculatePayment();
                     break;
                 case 4:
                     updatereservation();
-                    calculatePayment();
                     break;
                 case 5:
                     displayAvailableSlots();
@@ -130,8 +126,7 @@ public class user extends person {
                     calculatePayment();
                     break;
                 case 7:
-                    System.out.println("Exiting the system...");
-                    System.exit(0);
+                    System.out.println("logging out...");
                     return;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
@@ -314,6 +309,7 @@ public class user extends person {
         } while (back.toUpperCase().equals("C") && !rightchoice);
         vehicle.get(choice2).ConfirmReservation();
         vehicle.get(choice2).slot_number = number_of_reserved_slots;
+        calculatePayment();
     }
 
     public void CancelReservation() {
@@ -324,14 +320,16 @@ public class user extends person {
             return;
         }
         CancelationFees += 10;
-        vehicle.get(indexofelement).confirm_cancelation();
+        vehicle.get(indexofelement).ConfirmCancelation();
+        vehicle.get(indexofelement).slot_number = number_of_reserved_slots;
+        calculatePayment();
     }
 
     public void updatereservation() {
         System.out.println("Here is the vehicles that have reservation");
         int indexofelement;
         boolean rightchoice;
-        String back = null;
+        String back = "C";
         indexofelement = selectReservedVehicle();
         if (indexofelement == -1) {
             System.out.println("There is no Reservations to update");
@@ -340,8 +338,8 @@ public class user extends person {
 
         int sel;
         do {
-            System.out.println("1.date " + vehicle.get(indexofelement).getReservationdate());
-            System.out.println("2.time " + vehicle.get(indexofelement).getReservationdate());
+            System.out.println("1.date " + vehicle.get(indexofelement).getReservationdate() +  " /12/2024");
+            System.out.println("2.time " + vehicle.get(indexofelement).getReservationdate() + ":00");
             System.out.println("3.hours " + vehicle.get(indexofelement).getHours());
             System.out.println("Select the number for which you want to update");
             rightchoice = true;
@@ -375,7 +373,6 @@ public class user extends person {
         } else if (sel == 2) {
             int time;
             System.out.println("Enter the Time you want the reservation at");
-            time = scanner.nextInt();
             do {
                 time = scanner.nextInt();
                 rightchoice = true;
@@ -390,14 +387,35 @@ public class user extends person {
 
                 }
             } while (back.toUpperCase().equals("C") && !rightchoice);
+        }else{
+            int hourss;
+            System.out.println("Enter the Hours of the reservation");
+            do {
+                hourss = scanner.nextInt();
+                rightchoice = true;
+                if (vehicle.get(indexofelement).addhours(hourss)==1) {
+                    rightchoice = false;
+                    System.out.println("Please Enter a valid Number of hours");
+                    System.out.println("Press C if you want to reenter the time of the reservation or otherwise press any other letter to return to the main menu");
+                    back = scanner.next();
+                    if (!back.toUpperCase().equals("C")) {
+                        return;
+                    }
+
+                }
+            } while (back.toUpperCase().equals("C") && !rightchoice);
         }
-        return;
+            
+        calculatePayment();
     }
 
     public void displayAvailableSlots() {
         boolean largespot = false;
         boolean normalspot = false;
         boolean bikespot = false;
+        if(vehicle.size()==0){
+            System.out.println("You have no vehicle to display available slots for their type");
+        }
         for (int i = 0; i < vehicle.size(); i++) {
             if (vehicle.get(i).getType().equals("Bike")) {
                 if (bikespot) {
@@ -473,7 +491,7 @@ public class user extends person {
 
             System.out.println("Choose the number of the vehicle");
             for (int i = 0; i < vehicle.size(); i++) {
-                System.out.println((i + 1) + ". " + vehicle.get(i) + " (License: " + vehicle.get(i).getLicenes_number() + ")");
+                System.out.println((i + 1) + ". " + vehicle.get(i).getName() + " (License: " + vehicle.get(i).getLicenes_number() + ")");
             }
             Exceptions e = new Exceptions();
             choice = e.check_range(1, vehicle.size());

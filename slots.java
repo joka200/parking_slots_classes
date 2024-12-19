@@ -1,3 +1,4 @@
+
 public class slots
 {
     private int time;
