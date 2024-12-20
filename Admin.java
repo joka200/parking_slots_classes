@@ -7,10 +7,11 @@ public class Admin extends person {
     public static final String name = "admin";
     public static final String password = "admin";
 
-    Scanner scanner = new Scanner(System.in);
+    
 
     public void main_menu() {
         while (true) {
+            Scanner scanner = new Scanner(System.in);
             int choice;
             System.out.println("1. Add Slots");
             System.out.println("2. Delete an Entity");
