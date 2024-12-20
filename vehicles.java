@@ -112,9 +112,7 @@ public class vehicles {
             return 0;
     }
     public void add_data_to_slots(int fees){}
-    public void ConfirmReservation(){
-        System.out.println("yyyyyyyy");}
-    public void ConfirmCancelation(){
-        System.out.println("yyyyyyyy");}
+    public void ConfirmReservation(){}
+    public void ConfirmCancelation(){}
         
 }
