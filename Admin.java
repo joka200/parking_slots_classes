@@ -1,4 +1,3 @@
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,11 +6,11 @@ public class Admin extends person {
     public static final String name = "admin";
     public static final String password = "admin";
 
-    
+    Scanner scanner = new Scanner(System.in);
 
     public void main_menu() {
         while (true) {
-            Scanner scanner = new Scanner(System.in);
+            Scanner input = new Scanner(System.in);
             int choice;
             System.out.println("1. Add Slots");
             System.out.println("2. Delete an Entity");
@@ -23,9 +22,9 @@ public class Admin extends person {
             System.out.println("8. Calculate and Display Total Money from Large Spot Reservations");
             System.out.println("9. Update Any Data of Any Entity");
             System.out.println("10. Logout");
-            try{
-            choice = scanner.nextInt();
-            }catch (InputMismatchException e) {
+            try {
+                choice = input.nextInt();
+            } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
                 continue;
             }
@@ -72,14 +71,14 @@ public class Admin extends person {
         slots slot = new slots();
         int ans2;
         int ans3;
-        try{
-        System.out.println("Which spot kind do you want to add slots to: ( bike | normal | large )");
-        ans1 = scanner.next();
-        System.out.println("Which spot id do you want to add slots to: 200 | 201 | 202");
-        ans2 = scanner.nextInt();
-        System.out.println("How many slots you want to add");
-        ans3 = scanner.nextInt();
-        }catch(InputMismatchException e){
+        try {
+            System.out.println("Which spot kind do you want to add slots to: ( bike | normal | large )");
+            ans1 = scanner.next();
+            System.out.println("Which spot id do you want to add slots to: 200 | 201 | 202");
+            ans2 = scanner.nextInt();
+            System.out.println("How many slots you want to add");
+            ans3 = scanner.nextInt();
+        } catch (InputMismatchException e) {
             System.out.println("Invalid input.");
             return;
         }
@@ -87,7 +86,8 @@ public class Admin extends person {
             if (ans2 == bike.getSpot_id()) {
                 for (int i = 0; i < ans3; i++) {
                     bike.addslots();
-                    bike.setSlots(bike.getSlots() + 1);
+                    bike.setAvailable_slots(bike.getAvailable_slots() + 1);
+                    bike.setSlot(bike.getSlot() + 1);
                 }
             } else {
                 System.out.println("Invalid id");
@@ -98,7 +98,8 @@ public class Admin extends person {
                 for (int i = 0; i < ans3; i++) {
 
                     car.addslots();
-                    car.setSlots(car.getSlots() + 1);
+                    car.setAvailable_slots(car.getAvailable_slots() + 1);
+                    car.setSlot(car.getSlot() + 1);
 
                 }
             } else {
@@ -110,7 +111,8 @@ public class Admin extends person {
                 for (int i = 0; i < ans3; i++) {
 
                     fourByFour.addslots();
-                    fourByFour.setSlots(fourByFour.getSlots() + 1);
+                    fourByFour.setAvailable_slots(fourByFour.getAvailable_slots() + 1);
+                    fourByFour.setSlot(fourByFour.getSlot() + 1);
 
                 }
             } else {
@@ -143,7 +145,12 @@ public class Admin extends person {
         switch (choice) {
             case 1:
                 System.out.println("Enter the id of the user you want to delete");
-                choice2 = scanner.nextInt();
+                try {
+                    choice2 = scanner.nextInt();
+                } catch (InputMismatchException l) {
+                    System.out.println("Invalid input.");
+                    return;
+                }
                 index = main.users.indexOf(new user(" ", " ", " ", 0, 0, " ", " ", choice2));
                 if (index == -1) {
                     System.out.println("Id not found");
@@ -164,7 +171,12 @@ public class Admin extends person {
                 }
                 System.out.println(" ");
                 System.out.println("Are you sure you want to delete this user? Y/N");
-                choice3 = scanner.next();
+                try {
+                    choice3 = scanner.next();
+                } catch (InputMismatchException l) {
+                    System.out.println("Invalid input.");
+                    return;
+                }
                 switch (choice3) {
                     case "Y":
                     case "y":
@@ -183,7 +195,12 @@ public class Admin extends person {
                 break;
             case 2:
                 System.out.println("Enter the id of the user you want to delete his vehicle");
-                choice2 = scanner.nextInt();
+                try {
+                    choice2 = scanner.nextInt();
+                } catch (InputMismatchException l) {
+                    System.out.println("Invalid input.");
+                    return;
+                }
                 index = main.users.indexOf(new user(" ", " ", " ", 0, 0, " ", " ", choice2));
                 if (index == -1) {
                     System.out.println("Id not found");
@@ -195,7 +212,12 @@ public class Admin extends person {
                 choice4 = main.users.get(index).selectVehicle();
                 System.out.println(" ");
                 System.out.println("Are you sure you want to delete this vehicle? Y/N");
-                choice3 = scanner.next();
+                try {
+                    choice3 = scanner.next();
+                } catch (InputMismatchException l) {
+                    System.out.println("Invalid input.");
+                    return;
+                }
                 switch (choice3) {
                     case "Y":
                     case "y":
@@ -217,7 +239,12 @@ public class Admin extends person {
                 break;
             case 3:
                 System.out.println("Enter the id of the user you want to delete his resrvation");
-                choice2 = scanner.nextInt();
+                try {
+                    choice2 = scanner.nextInt();
+                } catch (InputMismatchException l) {
+                    System.out.println("Invalid input.");
+                    return;
+                }
                 index = main.users.indexOf(new user(" ", " ", " ", 0, 0, " ", " ", choice2));
                 if (index == -1) {
                     System.out.println("Id not found");
@@ -230,7 +257,12 @@ public class Admin extends person {
                 choice4 = main.users.get(index).selectReservedVehicle();
                 System.out.println(" ");
                 System.out.println("Are you sure you want to delete this reservation? Y/N");
-                choice3 = scanner.next();
+                try {
+                    choice3 = scanner.next();
+                } catch (InputMismatchException l) {
+                    System.out.println("Invalid input.");
+                    return;
+                }
                 switch (choice3) {
                     case "Y":
                     case "y":
@@ -252,14 +284,24 @@ public class Admin extends person {
                 System.out.println("1.Bike spot");
                 System.out.println("2.Normal spot");
                 System.out.println("3.Large spot");
-                choice2 = scanner.nextInt();
+                try {
+                    choice2 = scanner.nextInt();
+                } catch (InputMismatchException l) {
+                    System.out.println("Invalid input.");
+                    return;
+                }
                 switch (choice2) {
                     case 1:
                         System.out.println("Here is the number of available slots");
-                        bike.getSlots();
+                        bike.getAvailable_slots();
                         System.out.println("Enter the number of slots you want to delete");
-                        choice4 = scanner.nextInt();
-                        if (choice4 > bike.getSlots()) {
+                        try {
+                            choice4 = scanner.nextInt();
+                        } catch (InputMismatchException l) {
+                            System.out.println("Invalid input.");
+                            return;
+                        }
+                        if (choice4 > bike.getAvailable_slots()) {
                             System.out.println("Can't delete a reserved spot");
                         } else {
                             for (int i = 0; i < choice4; i++) {
@@ -270,10 +312,15 @@ public class Admin extends person {
                         break;
                     case 2:
                         System.out.println("Here is the number of available slots");
-                        car.getSlots();
+                        car.getAvailable_slots();
                         System.out.println("Enter the number of slots you want to delete");
-                        choice4 = scanner.nextInt();
-                        if (choice4 > car.getSlots()) {
+                        try {
+                            choice4 = scanner.nextInt();
+                        } catch (InputMismatchException l) {
+                            System.out.println("Invalid input.");
+                            return;
+                        }
+                        if (choice4 > car.getAvailable_slots()) {
                             System.out.println("Can't delete a reserved spot");
                         } else {
                             for (int i = 0; i < choice4; i++) {
@@ -284,10 +331,15 @@ public class Admin extends person {
                         break;
                     case 3:
                         System.out.println("Here is the number of available slots");
-                        fourByFour.getSlots();
+                        fourByFour.getAvailable_slots();
                         System.out.println("Enter the number of slots you want to delete");
-                        choice4 = scanner.nextInt();
-                        if (choice4 > fourByFour.getSlots()) {
+                        try {
+                            choice4 = scanner.nextInt();
+                        } catch (InputMismatchException l) {
+                            System.out.println("Invalid input.");
+                            return;
+                        }
+                        if (choice4 > fourByFour.getAvailable_slots()) {
                             System.out.println("Can't delete a reserved spot");
                         } else {
                             for (int i = 0; i < choice4; i++) {
@@ -310,21 +362,21 @@ public class Admin extends person {
     void Display_Available_slots() {
         System.out.println("Spot Type: " + car.getSpot_type());
         System.out.println("Spot ID: " + car.getSpot_id());
-        System.out.println("Number of available slots: " + car.getSlots());
+        System.out.println("Number of available slots: " + car.getAvailable_slots());
         for (int i = 0; i < car.slotsArray.size(); i++) {
             System.out.println("Slot Date: " + car.slotsArray.get(i).getDate());
             System.out.println("Slot Time: " + car.slotsArray.get(i).getTime());
         }
         System.out.println("Spot Type: " + bike.getSpot_type());
         System.out.println("Spot ID: " + bike.getSpot_id());
-        System.out.println("Number of available slots: " + bike.getSlots());
+        System.out.println("Number of available slots: " + bike.getAvailable_slots());
         for (int i = 0; i < bike.slotsArray.size(); i++) {
             System.out.println("Slot Date: " + bike.slotsArray.get(i).getDate());
             System.out.println("Slot Time: " + bike.slotsArray.get(i).getTime());
         }
         System.out.println("Spot Type: " + fourByFour.getSpot_type());
         System.out.println("Spot ID: " + fourByFour.getSpot_id());
-        System.out.println("Number of available slots: " + fourByFour.getSlots());
+        System.out.println("Number of available slots: " + fourByFour.getAvailable_slots());
         for (int i = 0; i < fourByFour.slotsArray.size(); i++) {
             System.out.println("Slot Date: " + fourByFour.slotsArray.get(i).getDate());
             System.out.println("Slot Time: " + fourByFour.slotsArray.get(i).getTime());
@@ -334,7 +386,13 @@ public class Admin extends person {
 
     void Display_all_owner_data() {
         System.out.println("Enter the id of the user you want to update");
-        int choice1 = scanner.nextInt();
+        int choice1;
+        try {
+            choice1 = scanner.nextInt();
+        } catch (InputMismatchException l) {
+            System.out.println("Invalid input.");
+            return;
+        }
         int index = main.users.indexOf(new user(" ", " ", " ", 0, 0, " ", " ", choice1));
         if (index == -1) {
             System.out.println("Id not found");
@@ -402,7 +460,7 @@ public class Admin extends person {
 
     void Display_normal_spot_total_amount() {
         int fees = 0;
-        for (int i = 0; i < car.getSlots(); i++) {
+        for (int i = 0; i < car.getAvailable_slots(); i++) {
             fees += car.slotsArray.get(i).getFees();
         }
         System.out.println("Normal Spot fees: " + fees);
@@ -410,7 +468,7 @@ public class Admin extends person {
 
     void Display_bike_spot_total_amount() {
         int fees = 0;
-        for (int i = 0; i < bike.getSlots(); i++) {
+        for (int i = 0; i < bike.getAvailable_slots(); i++) {
             fees += bike.slotsArray.get(i).getFees();
         }
         System.out.println("bike Spot fees: " + fees);
@@ -418,7 +476,7 @@ public class Admin extends person {
 
     void Display_large_spot_total_amount() {
         int fees = 0;
-        for (int i = 0; i < fourByFour.getSlots(); i++) {
+        for (int i = 0; i < fourByFour.getAvailable_slots(); i++) {
             fees += fourByFour.slotsArray.get(i).getFees();
         }
         System.out.println("Large Spot fees: " + fees);
@@ -426,7 +484,13 @@ public class Admin extends person {
 
     void update_data() {
         System.out.println("Enter the id of the user you want to update");
-        int choice1 = scanner.nextInt();
+        int choice1;
+        try {
+            choice1 = scanner.nextInt();
+        } catch (InputMismatchException l) {
+            System.out.println("Invalid input.");
+            return;
+        }
         int index = main.users.indexOf(new user(" ", " ", " ", 0, 0, " ", " ", choice1));
         if (index == -1) {
             System.out.println("Id not found");
@@ -461,8 +525,8 @@ public class Admin extends person {
                     case 1:
                         for (int j = 0; j < main.users.get(index).vehicle.size(); j++) {
                             System.out.println("Vehicles: ");
-                            System.out.print(j+1 + ". " + main.users.get(index).vehicle.get(j).getName() + " (License: " + main.users.get(index).vehicle.get(j).getLicenes_number());
-                            if (main.users.get(index).vehicle.get(j-1).There_is_reservation) {
+                            System.out.print(j + 1 + ". " + main.users.get(index).vehicle.get(j).getName() + " (License: " + main.users.get(index).vehicle.get(j).getLicenes_number());
+                            if (main.users.get(index).vehicle.get(j - 1).There_is_reservation) {
                                 System.out.print(" Reservation date: " + main.users.get(index).vehicle.get(j).getReservationdate() + "/12/2024");
                                 System.out.print(" Reservation time: " + main.users.get(index).vehicle.get(j).getReservationtime() + ":00");
                                 System.out.print(" Reservation hours " + main.users.get(index).vehicle.get(j).getHours());
@@ -476,13 +540,19 @@ public class Admin extends person {
                             return;
                         }
                         System.out.println("Enter the new vehicle name");
-                        String s = scanner.next();
+                        String s;
+                        try {
+                            s = scanner.next();
+                        } catch (InputMismatchException l) {
+                            System.out.println("Invalid input.");
+                            return;
+                        }
                         main.users.get(index).vehicle.get(choice2 - 1).setName(s);
                         break;
                     case 2:
                         for (int j = 0; j < main.users.get(index).vehicle.size(); j++) {
                             System.out.println("Vehicles: ");
-                            System.out.print(j+1 + ". " + main.users.get(index).vehicle.get(j).getName() + " (License: " + main.users.get(index).vehicle.get(j).getLicenes_number());
+                            System.out.print(j + 1 + ". " + main.users.get(index).vehicle.get(j).getName() + " (License: " + main.users.get(index).vehicle.get(j).getLicenes_number());
                             if (main.users.get(index).vehicle.get(j).There_is_reservation) {
                                 System.out.print(" Reservation date: " + main.users.get(index).vehicle.get(j).getReservationdate() + "/12/2024");
                                 System.out.print(" Reservation time: " + main.users.get(index).vehicle.get(j).getReservationtime() + ":00");
@@ -497,7 +567,13 @@ public class Admin extends person {
                             return;
                         }
                         System.out.println("Enter the new number");
-                        String L = scanner.next();
+                        String L;
+                        try {
+                            L = scanner.next();
+                        } catch (InputMismatchException l) {
+                            System.out.println("Invalid input.");
+                            return;
+                        }
                         main.users.get(index).vehicle.get(choice2 - 1).setName(L);
                         break;
                     case 3:

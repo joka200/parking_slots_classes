@@ -121,9 +121,10 @@ public class log_in {
             while ((line = reader.readLine()) != null) {
                 String[] userInfo = line.split(" ");
 
-                bike.setSlots(Integer.parseInt(userInfo[0]));
-                int n = 1;
-                for (int i = 0; i < bike.slotsArray.size(); i++) {
+                bike.setSlot(Integer.parseInt(userInfo[0]));
+                bike.setAvailable_slots(Integer.parseInt(userInfo[1]));
+                int n = 2;
+                for (int i = 0; i < bike.getSlot(); i++) {
                     slots s = new slots(
                             Integer.parseInt(userInfo[n]),
                             Integer.parseInt(userInfo[n + 1]),
@@ -145,9 +146,10 @@ public class log_in {
             while ((line = reader.readLine()) != null) {
                 String[] userInfo = line.split(" ");
 
-                car.setSlots(Integer.parseInt(userInfo[0]));
-                int n = 1;
-                for (int i = 0; i < car.slotsArray.size(); i++) {
+                car.setSlot(Integer.parseInt(userInfo[0]));
+                car.setAvailable_slots(Integer.parseInt(userInfo[1]));
+                int n = 2;
+                for (int i = 0; i < car.getSlot(); i++) {
                     slots s = new slots(
                             Integer.parseInt(userInfo[n]),
                             Integer.parseInt(userInfo[n + 1]),
@@ -169,9 +171,10 @@ public class log_in {
             while ((line = reader.readLine()) != null) {
                 String[] userInfo = line.split(" ");
 
-                fourByFour.setSlots(Integer.parseInt(userInfo[0]));
-                int n = 1;
-                for (int i = 0; i < fourByFour.slotsArray.size(); i++) {
+                fourByFour.setSlot(Integer.parseInt(userInfo[0]));
+                fourByFour.setAvailable_slots(Integer.parseInt(userInfo[1]));
+                int n = 2;
+                for (int i = 0; i < fourByFour.getSlot(); i++) {
                     slots s = new slots(
                             Integer.parseInt(userInfo[n]),
                             Integer.parseInt(userInfo[n + 1]),

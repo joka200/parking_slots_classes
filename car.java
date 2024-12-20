@@ -1,12 +1,12 @@
-
 import java.util.ArrayList;
 public class car extends vehicles {
 
     private static final int spot_id = 201;
-    private static int slots = 0;
+    private static int available_slots = 0;
     private static final String spot_type = "Normal Spot";
     private static final int price = 50;
     public int slot_number = 0;
+    private static int slot = 0;
     public static ArrayList<slots> slotsArray = new ArrayList<>();
 
     public car(String name, String type, String licenes_number) {
@@ -16,6 +16,15 @@ public class car extends vehicles {
     public int getSlot_number() {
         return slot_number;
     }
+
+    public static int getSlot() {
+        return slot;
+    }
+
+    public static void setSlot(int slot) {
+        car.slot = slot;
+    }
+    
 
     public void setSlot_number(int slot_number) {
         this.slot_number = slot_number;
@@ -36,16 +45,18 @@ public class car extends vehicles {
         return price;
     }
 
-    public static int getSlots() {
-        return slots;
+    public static int getAvailable_slots() {
+        return available_slots;
     }
+
+    
 
     public static int getSpot_id() {
         return spot_id;
     }
 
     public static int check_availability() {
-        if (car.getSlots() <= 0) {
+        if (car.available_slots <= 0) {
             System.out.println("Sorry there is no slots in this type available for reservations");
             return 1;
         }
@@ -53,9 +64,11 @@ public class car extends vehicles {
 
     }
 
-    public static void setSlots(int slots) {
-        car.slots = slots;
+    public static void setAvailable_slots(int available_slots) {
+        car.available_slots = available_slots;
     }
+
+    
 
     @Override
     public void ConfirmReservation() {
@@ -63,7 +76,7 @@ public class car extends vehicles {
         add_data_to_slots(car.price * (hours- free_hours));
         user.number_of_normal_reserved_slots++;
         slot_number = user.number_of_normal_reserved_slots;
-        slots--;
+        available_slots--;
     }
 
     @Override
@@ -72,13 +85,13 @@ public class car extends vehicles {
         user.number_of_normal_reserved_slots--;
         slot_number = user.number_of_normal_reserved_slots;
         add_data_to_slots(car.price * getHours()); 
-        slots++;
+        available_slots++;
     }
     @Override
     public void add_data_to_slots(int feess) {
-        this.slotsArray.get(this.slot_number).setTime(Reservationtime);
-        this.slotsArray.get(this.slot_number).setDate(Reservationdate);
-        this.slotsArray.get(this.slot_number).setFees(feess);
+        this.slotsArray.get(slot_number).setTime(Reservationtime);
+        this.slotsArray.get(slot_number).setDate(Reservationdate);
+        this.slotsArray.get(slot_number).setFees(feess);
     }
     
 

@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -6,14 +5,24 @@ public class bike extends vehicles {
 
     private static final int spot_id = 200;
     private static final String spot_type = "Bike Spot";
-    private static int slots = 0;
+    private static int available_slots = 0;
     private static final int price = 25;
     private int slot_number = 0;
+    private static int slot = 0;
     public static ArrayList<slots> slotsArray = new ArrayList<>();
 
     public bike(String name, String type, String licenes_number) {
         super(name, type, licenes_number);
     }
+
+    public static int getSlot() {
+        return slot;
+    }
+
+    public static void setSlot(int slot) {
+        bike.slot = slot;
+    }
+    
 
     public int getSlot_number() {
         return slot_number;
@@ -22,13 +31,10 @@ public class bike extends vehicles {
     public void setSlot_number(int slot_number) {
         this.slot_number = slot_number;
     }
-    
-    
 
-    public static void setSlots(int slots) {
-        bike.slots = slots;
+    public static void setAvailable_slots(int available_slots) {
+        bike.available_slots = available_slots;
     }
-
     public static void addslots() {
         slotsArray.add(new slots());
     }
@@ -44,8 +50,8 @@ public class bike extends vehicles {
         return price;
     }
 
-    public static int getSlots() {
-        return slots;
+    public static int getAvailable_slots() {
+        return available_slots;
     }
 
     public static int getSpot_id() {
@@ -53,7 +59,7 @@ public class bike extends vehicles {
     }
 
     public static int check_availability() {
-        if (bike.getSlots() <= 0) {
+        if (bike.available_slots <= 0) {
             System.out.println("Sorry there is no slots in this type available for reservations");
             return 1;
         }
@@ -67,7 +73,7 @@ public class bike extends vehicles {
         add_data_to_slots(bike.price * (hours- free_hours));
         user.number_of_bike_reserved_slots++;
         slot_number = user.number_of_bike_reserved_slots;
-        slots--;
+        available_slots--;
     }
 
     @Override
@@ -76,7 +82,7 @@ public class bike extends vehicles {
         user.number_of_bike_reserved_slots--;
         slot_number = user.number_of_bike_reserved_slots;
         add_data_to_slots(bike.price * getHours());
-        slots++;
+        available_slots++;
     }
 
     @Override

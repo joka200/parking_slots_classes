@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class user extends person {
@@ -274,13 +275,24 @@ public class user extends person {
             }
         } while (back.toUpperCase().equals("C") && !rightchoice);
         do {
+            Scanner input = new Scanner(System.in);
             int day;
             int time;
             rightchoice = true;
             System.out.println("Enter the Day you want the reservation at");
-            day = scanner.nextInt();
+            try{
+            day = input.nextInt();
+            }catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
+            }
             System.out.println("Enter the Time you want the reservation at");
-            time = scanner.nextInt();
+            try{
+            time = input.nextInt();
+            }catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
+            }
             if (vehicle.get(choice2).addDateandTime(day, time) == 1) {
                 rightchoice = false;
                 System.out.println("Please Enter a valid day that don't exceeds 3 days from today");
@@ -297,9 +309,16 @@ public class user extends person {
             }
         } while (back.toUpperCase().equals("C") && !rightchoice);
         do {
+            Scanner input = new Scanner(System.in);
             rightchoice = true;
             System.out.println("Please enter the hours you want the reservation to be");
-            int hours = scanner.nextInt();
+            int hours;
+            try{
+            hours = input.nextInt();
+            }catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
+            }
             if (vehicle.get(choice2).addhours(hours) == 1) {
                 rightchoice = false;
                 System.out.println("Please Enter a valid number of hours");
@@ -428,19 +447,19 @@ public class user extends person {
                     continue;
                 }
                 bikespot = true;
-                System.out.println("Available bike slots are: " + bike.getSlots());
+                System.out.println("Available bike slots are: " + bike.getAvailable_slots());
             } else if (vehicle.get(i).getType().equals("Car")) {
                 if (normalspot) {
                     continue;
                 }
                 normalspot = true;
-                System.out.println("Available Normal slots are: " + car.getSlots());
+                System.out.println("Available Normal slots are: " + car.getAvailable_slots());
             } else {
                 if (largespot) {
                     continue;
                 }
                 largespot = true;
-                System.out.println("Available Large slots are: " + fourByFour.getSlots());
+                System.out.println("Available Large slots are: " + fourByFour.getAvailable_slots());
             }
         }
     }

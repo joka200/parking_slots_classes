@@ -1,13 +1,13 @@
-
 import java.util.ArrayList;
 
 public class fourByFour extends vehicles {
 
     private static final int spot_id = 202;
-    private static int slots = 0;
+    private static int available_slots = 0;
     private static final String spot_type = "Large Spot";
     private static final int price = 150;
     public int slot_number = 0;
+    private static int slot = 0;
     public static ArrayList<slots> slotsArray = new ArrayList<>();
 
     public fourByFour(String name, String type, String licenes_number) {
@@ -17,6 +17,15 @@ public class fourByFour extends vehicles {
     public static void addslots(){
         slotsArray.add(new slots());
     }
+
+    public static int getSlot() {
+        return slot;
+    }
+
+    public static void setSlot(int slot) {
+        fourByFour.slot = slot;
+    }
+    
 
     public int getSlot_number() {
         return slot_number;
@@ -34,9 +43,11 @@ public class fourByFour extends vehicles {
         return price;
     }
 
-    public static int getSlots() {
-        return slots;
+    public static int getAvailable_slots() {
+        return available_slots;
     }
+
+    
 
     public static int getSpot_id() {
         return spot_id;
@@ -48,7 +59,7 @@ public class fourByFour extends vehicles {
     
 
     public static int check_availability() {
-        if (fourByFour.getSlots() <= 0) {
+        if (fourByFour.available_slots <= 0) {
             System.out.println("Sorry there is no slots in this type available for reservations");
             return 1;
         }
@@ -56,9 +67,11 @@ public class fourByFour extends vehicles {
 
     }
 
-    public static void setSlots(int slots) {
-        fourByFour.slots = slots;
+    public static void setAvailable_slots(int available_slots) {
+        fourByFour.available_slots = available_slots;
     }
+
+    
 
     @Override
     public void ConfirmReservation() {
@@ -66,7 +79,7 @@ public class fourByFour extends vehicles {
         add_data_to_slots(fourByFour.price * (hours- free_hours));
         user.number_of_large_reserved_slots++;
         slot_number = user.number_of_large_reserved_slots;
-        slots--;
+        available_slots--;
     }
 
     @Override
@@ -75,7 +88,7 @@ public class fourByFour extends vehicles {
         user.number_of_large_reserved_slots--;
         slot_number = user.number_of_large_reserved_slots;
         add_data_to_slots(fourByFour.price * getHours());
-        slots++;
+        available_slots++;
     }
     @Override
     public void add_data_to_slots(int feess) {
