@@ -6,11 +6,21 @@ public class car extends vehicles {
     private static int slots = 0;
     private static final String spot_type = "Normal Spot";
     private static final int price = 50;
+    public int slot_number = 0;
     public static ArrayList<slots> slotsArray = new ArrayList<>();
 
     public car(String name, String type, String licenes_number) {
         super(name, type, licenes_number);
     }
+
+    public int getSlot_number() {
+        return slot_number;
+    }
+
+    public void setSlot_number(int slot_number) {
+        this.slot_number = slot_number;
+    }
+    
 
     public static String getSpot_type() {
         return spot_type;
@@ -51,26 +61,24 @@ public class car extends vehicles {
     public void ConfirmReservation() {
         There_is_reservation = true;
         add_data_to_slots(car.price * (hours- free_hours));
-        user.number_of_reserved_slots++;
+        user.number_of_normal_reserved_slots++;
+        slot_number = user.number_of_normal_reserved_slots;
         slots--;
     }
 
     @Override
     public void ConfirmCancelation() {
         setThere_is_reservation(false);
-        setHours(0);
-        setFree_hours(0);
-        add_data_to_slots(car.price * getHours());
-        slotsArray.remove(slot_number);
-        addslots();
-        user.number_of_reserved_slots--;
+        user.number_of_normal_reserved_slots--;
+        slot_number = user.number_of_normal_reserved_slots;
+        add_data_to_slots(car.price * getHours()); 
         slots++;
     }
     @Override
     public void add_data_to_slots(int feess) {
-        slotsArray.get(slot_number).setTime(Reservationtime);
-        slotsArray.get(slot_number).setDate(Reservationdate);
-        slotsArray.get(slot_number).setFees(feess);
+        this.slotsArray.get(this.slot_number).setTime(Reservationtime);
+        this.slotsArray.get(this.slot_number).setDate(Reservationdate);
+        this.slotsArray.get(this.slot_number).setFees(feess);
     }
     
 

@@ -7,6 +7,7 @@ public class fourByFour extends vehicles {
     private static int slots = 0;
     private static final String spot_type = "Large Spot";
     private static final int price = 150;
+    public int slot_number = 0;
     public static ArrayList<slots> slotsArray = new ArrayList<>();
 
     public fourByFour(String name, String type, String licenes_number) {
@@ -16,6 +17,15 @@ public class fourByFour extends vehicles {
     public static void addslots(){
         slotsArray.add(new slots());
     }
+
+    public int getSlot_number() {
+        return slot_number;
+    }
+
+    public void setSlot_number(int slot_number) {
+        this.slot_number = slot_number;
+    }
+    
     public static void removeslots(){
         slotsArray.remove(slotsArray.size()-1);
     }
@@ -54,26 +64,24 @@ public class fourByFour extends vehicles {
     public void ConfirmReservation() {
         There_is_reservation = true;
         add_data_to_slots(fourByFour.price * (hours- free_hours));
-        user.number_of_reserved_slots++;
+        user.number_of_large_reserved_slots++;
+        slot_number = user.number_of_large_reserved_slots;
         slots--;
     }
 
     @Override
     public void ConfirmCancelation() {
         setThere_is_reservation(false);
-        setHours(0);
-        setFree_hours(0);
+        user.number_of_large_reserved_slots--;
+        slot_number = user.number_of_large_reserved_slots;
         add_data_to_slots(fourByFour.price * getHours());
-        slotsArray.remove(slot_number);
-        addslots();
-        user.number_of_reserved_slots--;
         slots++;
     }
     @Override
-    public void add_data_to_slots(int fees) {
-        slotsArray.get(slot_number).setTime(Reservationtime);
-        slotsArray.get(slot_number).setDate(Reservationdate);
-        slotsArray.get(slot_number).setFees(fees);
+    public void add_data_to_slots(int feess) {
+        this.slotsArray.get(this.slot_number).setTime(Reservationtime);
+        this.slotsArray.get(this.slot_number).setDate(Reservationdate);
+        this.slotsArray.get(this.slot_number).setFees(feess);
     }
 
 }

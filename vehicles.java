@@ -11,7 +11,7 @@ public class vehicles {
     protected boolean There_is_reservation;
     protected int Reservationdate;
     protected int Reservationtime;
-    public int slot_number;
+    private int slot_number;
 
     public vehicles(String name, String type, String licenes_number) {
         this.name = name;
@@ -22,6 +22,15 @@ public class vehicles {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getSlot_number() {
+        return slot_number;
+    }
+
+    public void setSlot_number(int slot_number) {
+        this.slot_number = slot_number;
+    }
+    
     
 
     public String getName() {
@@ -103,7 +112,9 @@ public class vehicles {
             return 0;
     }
     public void add_data_to_slots(int fees){}
-    public void ConfirmReservation(){}
-    public void ConfirmCancelation(){}
+    public void ConfirmReservation(){
+        System.out.println("yyyyyyyy");}
+    public void ConfirmCancelation(){
+        System.out.println("yyyyyyyy");}
         
 }

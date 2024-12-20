@@ -1,4 +1,5 @@
 
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -75,7 +76,9 @@ public class Sign_up {
                         main.users.get(i).getFees() + " "+
                         main.users.get(i).getCancelationFees() + " "+
                         main.users.get(i).getNumberOfVehicles() + " "+
-                        user.number_of_reserved_slots + " "+
+                        user.number_of_bike_reserved_slots + " "+
+                        user.number_of_normal_reserved_slots + " "+
+                        user.number_of_large_reserved_slots + " "+
                         user.starting_id + " "));
                 for(int j = 0;j<main.users.get(i).vehicle.size();j++)
                 {
@@ -87,7 +90,8 @@ public class Sign_up {
                                     main.users.get(i).vehicle.get(j).isThere_is_reservation() + " " +
                                     main.users.get(i).vehicle.get(j).getReservationdate() + " " +
                                     main.users.get(i).vehicle.get(j).getReservationtime() + " " +
-                                    main.users.get(i).vehicle.get(j).slot_number + " ");
+                                    main.users.get(i).vehicle.get(j).getSlot_number() + " ");
+                    
                 }
                 writer.newLine();
             }
@@ -114,7 +118,7 @@ public class Sign_up {
                 writer.write(String.valueOf(
                         bike.getSlots() + " "
                         ));
-                for(int j = 0;j<bike.getSlots();j++)
+                for(int j = 0;j<bike.slotsArray.size();j++)
                 {
                     writer.write(bike.slotsArray.get(j).getTime() + " " +
                                 bike.slotsArray.get(j).getDate() + " " +
@@ -146,7 +150,7 @@ public class Sign_up {
                 writer.write(String.valueOf(
                         car.getSlots()+ " "
                         ));
-                for(int j = 0;j<car.getSlots();j++)
+                for(int j = 0;j<car.slotsArray.size();j++)
                 {
                     writer.write(car.slotsArray.get(j).getTime() + " " +
                                 car.slotsArray.get(j).getDate() + " " +
@@ -178,7 +182,7 @@ public class Sign_up {
                 writer.write(String.valueOf(
                         fourByFour.getSlots()+ " "
                         ));
-                for(int j = 0;j<fourByFour.getSlots();j++)
+                for(int j = 0;j<fourByFour.slotsArray.size();j++)
                 {
                     writer.write(fourByFour.slotsArray.get(j).getTime() + " " +
                                 fourByFour.slotsArray.get(j).getDate() + " " +

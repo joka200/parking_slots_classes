@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +17,9 @@ public class user extends person {
     private int CancelationFees = 0;
     private int numberOfVehicles = 0;
     public ArrayList<vehicles> vehicle = new ArrayList<>();
-    public static int number_of_reserved_slots = 0;
+    public static int number_of_bike_reserved_slots = 0;
+    public static int number_of_normal_reserved_slots = 0;
+    public static int number_of_large_reserved_slots = 0;
     public static int starting_id = 100;
 
     Scanner scanner = new Scanner(System.in);
@@ -307,8 +310,8 @@ public class user extends person {
                 return;
             }
         } while (back.toUpperCase().equals("C") && !rightchoice);
+        vehicle.get(choice2).setFree_hours(reward(choice2));
         vehicle.get(choice2).ConfirmReservation();
-        vehicle.get(choice2).slot_number = number_of_reserved_slots;
         calculatePayment();
     }
 
@@ -319,9 +322,12 @@ public class user extends person {
             System.out.println("There is no Reservations to cancel");
             return;
         }
+        vehicle.get(indexofelement).setHours(0);
+        vehicle.get(indexofelement).setFree_hours(0);
+        vehicle.get(indexofelement).setReservationdate(0);
+        vehicle.get(indexofelement).setReservationtime(0);
         CancelationFees += 10;
         vehicle.get(indexofelement).ConfirmCancelation();
-        vehicle.get(indexofelement).slot_number = number_of_reserved_slots;
         calculatePayment();
     }
 

@@ -11,6 +11,7 @@ public class Admin extends person {
 
     public void main_menu() {
         while (true) {
+            int choice;
             System.out.println("1. Add Slots");
             System.out.println("2. Delete an Entity");
             System.out.println("3. Display All Available Slots for All Spots");
@@ -21,8 +22,12 @@ public class Admin extends person {
             System.out.println("8. Calculate and Display Total Money from Large Spot Reservations");
             System.out.println("9. Update Any Data of Any Entity");
             System.out.println("10. Logout");
-
-            int choice = scanner.nextInt();
+            try{
+            choice = scanner.nextInt();
+            }catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
+            }
             switch (choice) {
                 case 1:
                     add_slot();
